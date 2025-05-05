@@ -1,8 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form';
-// import { useDispatch } from 'react-redux'
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 
 function Login() {
 
@@ -12,8 +11,6 @@ function Login() {
     const [errorMessage, setErrorMessage] = useState('');
     const password = watch("password");
     const [showPassword, setShowPassword] = useState('');
-    // const email = useRef(null);
-    // const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const login = (FormData) => {

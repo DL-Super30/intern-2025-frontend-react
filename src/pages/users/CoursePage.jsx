@@ -13,69 +13,64 @@ function CoursePage() {
     const Videos = [
         {
             id: "vid1",
-            title1: "Video 1",
+            title1: "JavaScript in 3 Hours",
             youtubeId: "PkZNo7MFNFg",
         },
         {
             id: "vid2",
-            title2: "Video 2",
+            title2: "JavaScript ES6",
             youtubeId: "CozSF5abcTA",
         },
         {
             id: "vid3",
-            title3: "Video 3",
+            title3: "JavaScript Full Course",
             youtubeId: "jS4aFq5-91M",
         },
         {
             id: "vid4",
-            title4: "Video 4",
+            title4: "React With TypeScript",
             youtubeId: "xTVQZ46wc28",
         },
         {
             id: "vid5",
-            title5: "Video 5",
+            title5: "TypeScript in React",
             youtubeId: "DxqiBrERv6o",
         },
         {
             id: "vid6",
-            title6: "Video 6",
+            title6: "Next JS Beginners Guide",
             youtubeId: "OTuHnVvxTDs",
         },
         {
             id: "vid7",
-            title7: "Video 7",
+            title7: "Redux ToolKit with NextJs and TypeScript",
             youtubeId: "G6YoUlYrr9M",
         },
         {
             id: "vid8",
-            title8: "Video 8",
+            title8: "Next Js in 7 Hours",
             youtubeId: "843nec-IvW0",
         },
         {
             id: "vid9",
-            title9: "Video 9",
+            title9: "Java",
             youtubeId: "r3GGV2TG_vw",
         },
         {
             id: "vid10",
-            title10: "Video 10",
+            title10: "Python",
             youtubeId: "H2EJuAcrZYU",
         },
         {
             id: "vid11",
-            title11: "Video 11",
+            title11: "Sap",
             youtubeId: "1jFQMadZLfs",
         },
         {
             id: "vid12",
-            title12: "Video 12",
+            title12: "SQL",
             youtubeId: "iuvzjf7nU1I",
-        },
-        {
-            id: "vid13",
-            title13: "Video 13",
-            youtubeId: "JjrcxsniXvc",
-        },
+        }
     ]
 
     return (

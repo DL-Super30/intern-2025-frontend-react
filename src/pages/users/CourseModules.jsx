@@ -1,144 +1,149 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-function CourseModules() {
+function CourseModules({ CourseName, Videos }) {
+  const [modules, setModules] = useState([]);
 
-    const [selectedCourse , setSelectedCourse ] = useState(null);
-    const [videos , setVideos ] = useState([
-        {name:'ReactJS' , Link:'https://www.youtube.com/watch?v=UBOj6rqRUME'},
-        {name:'NextJS' , Link:'https://www.youtube.com/watch?v=9P8mASSREYM'},
-        {name:'' , Link:''}, 
-    ])
+  // Initialize modules using props (only on first render)
+  useEffect(() => {
+    setModules([
+      {
+        id: Date.now(),
+        title: "Module 1",
+        videos: Videos && Array.isArray(Videos) ? Videos : [],
+      },
+    ]);
+  }, [Videos]);
 
-    const addVideo = () => {
-        setVideos([...videos , { name:'' , Link:'' }])
-    }
+  const addModule = () => {
+    setModules((prevModules) => [
+      ...prevModules,
+      {
+        id: Date.now(),
+        title: `Module ${prevModules.length + 1}`,
+        videos: [{ name: "", Link: "" }],
+      },
+    ]);
+  };
 
-    const courses = [
-        {
-            name: "fsreact2304",
-            CourseName: "fsreact2304",
-            TrainerName: "deepak",
-            Modules: 2,
-            LiveClass: "NA"
-        },
-        {
-            name: "pythonfullstack",
-            CourseName: "pythonfullstack",
-            TrainerName: "Shoubik",
-            Modules: 5,
-            LiveClass: "NA"
+  const addVideo = (moduleId) => {
+    setModules((prevModules) =>
+      prevModules.map((module) =>
+        module.id === moduleId
+          ? {
+              ...module,
+              videos: [...module.videos, { name: "", Link: "" }],
+            }
+          : module
+      )
+    );
+  };
 
-        },
-        {
-            name: "javafullstack",
-            CourseName: "javafullstack",
-            TrainerName: "Shoubik",
-            Modules: 6,
-            LiveClass: "NA"
+  const deleteModule = (moduleId) => {
+    setModules((prevModules) =>
+      prevModules.filter((module) => module.id !== moduleId)
+    );
+  };
 
-        },
-        {
-            name: "mernstack",
-            CourseName: "mernstack",
-            TrainerName: "Manideep",
-            Modules: 4,
-            LiveClass: "NA"
+  const deleteVideo = (moduleId, videoIndex) => {
+    setModules((prevModules) =>
+      prevModules.map((module) =>
+        module.id === moduleId
+          ? {
+              ...module,
+              videos: module.videos.filter((_, idx) => idx !== videoIndex),
+            }
+          : module
+      )
+    );
+  };
 
-        },
-        {
-            name: "fullstack",
-            CourseName: "fullstack",
-            TrainerName: "Arjun",
-            Modules: 6,
-            LiveClass: "NA"
-        },
-        {
-            name: "fspython2301",
-            CourseName: "fspython2301",
-            TrainerName: "Maheshwaran",
-            Modules: 4,
-            LiveClass: "NA"
-        },
-        {
-            name: "powerbi2304",
-            CourseName: "powerbi2304",
-            TrainerName: "Maheshwaran",
-            Modules: 5,
-            LiveClass: "NA"
-        },
-        {
-            name: "awsdevops2307",
-            CourseName: "awsdevops2307",
-            TrainerName: "Murali",
-            Modules: 6,
-            LiveClass: "NA"
-        },
-        {
-            name: "azuredevops2308",
-            CourseName: "awsdevops2307",
-            TrainerName: "Murali",
-            Modules: 4,
-            LiveClass: "NA"
-        },
-        {
-            name: "salesforce2401",
-            CourseName: "salesforce2401",
-            TrainerName: "Deepak",
-            Modules: 4,
-            LiveClass: "NA"
-        },
-        {
-            name: "fscorejava2302",
-            CourseName: "fscorejava2302",
-            TrainerName: "Shoubik",
-            Modules: 4,
-            LiveClass: "NA"
-        }
-    ]
+  const handleChange = (moduleId, videoIndex, field, value) => {
+    setModules((prevModules) =>
+      prevModules.map((module) =>
+        module.id === moduleId
+          ? {
+              ...module,
+              videos: module.videos.map((video, idx) =>
+                idx === videoIndex ? { ...video, [field]: value } : video
+              ),
+            }
+          : module
+      )
+    );
+  };
 
-    const DeleteVideo = () => {
-        const updated = [...videos];
-        updated.splice(index , 1);
-        setVideos(updated);
-    }
-    return (
+  return (
+    <div>
+      <div className="mt-4 ml-3 flex items-center justify-between">
+        <h2 className="text-3xl text-black font-semibold">{CourseName}</h2>
+        <button
+          className="bg-blue-500 text-white hover:bg-blue-700 rounded-md cursor-pointer p-2 mr-1"
+          onClick={addModule}
+        >
+          Add Module
+        </button>
+      </div>
 
-        <div>
-            <div className="mt-2">
-                {courses.name}
+      {modules.map((module, moduleIndex) => (
+        <div
+          key={module.id}
+          className="border p-6 w-[660px] rounded-md shadow-md mt-5 ml-2 pb-12 relative"
+        >
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-lg font-semibold">{module.title}</h2>
+            <div className="space-x-4 text-end">
+              <button
+                className="bg-blue-500 text-white hover:bg-blue-700 rounded-md p-2 cursor-pointer"
+                onClick={() => addVideo(module.id)}
+              >
+                Add Video
+              </button>
+              <button
+                className="bg-red-500 text-white hover:bg-red-700 rounded-md p-2 cursor-pointer"
+                onClick={() => deleteModule(module.id)}
+              >
+                Delete Module
+              </button>
             </div>
-            <div className="text-end mt-4">
-                <button className="bg-blue-500 text-white hover:bg-blue-700 rounded-md cursor-pointer p-2">Add Module</button>
+          </div>
+
+          <div className="flex space-x-56 items-start font-medium">
+            <div className="ml-2">Video Name</div>
+            <div>Video Link</div>
+          </div>
+
+          {module.videos.map((video, idx) => (
+            <div key={idx} className="flex gap-4 items-center mb-2 mt-2">
+              <input
+                type="text"
+                value={video.name}
+                placeholder="Video Name"
+                className="border border-gray-400 px-2 py-1 w-52"
+                onChange={(e) =>
+                  handleChange(module.id, idx, "name", e.target.value)
+                }
+              />
+              <input
+                type="text"
+                value={video.Link}
+                placeholder="Video Link"
+                className="border border-gray-400 px-2 py-1 ml-24 w-52"
+                onChange={(e) =>
+                  handleChange(module.id, idx, "Link", e.target.value)
+                }
+              />
+              <button
+                className="cursor-pointer"
+                onClick={() => deleteVideo(module.id, idx)}
+              >
+                <i className="fa-solid fa-trash text-red-500 mt-2 ml-4 text-xl cursor-pointer"></i>
+              </button>
             </div>
-
-            <div className="border p-6 w-fit rounded-md shadow-md mt-4">
-            <div className="flex justify-between items-center mb-4 space-x-104">
-           <h2 className="text-lg font-semibold">fs funfamentals 1</h2>
-                <div className="space-x-4 text-end">
-                    <button className="bg-blue-500 text-white hover:bg-blue-700 rounded-md p-2 text-end cursor-pointer" onClick={() => addVideo()}>Add Video</button>
-                    <button className="bg-blue-500 text-white hover:bg-blue-700 rounded-md p-2 text-end cursor-pointer">Delete Module</button>
-                </div>
-            </div>
-
-            <div className="flex space-x-56 items-start">
-                    <div className="ml-2">Video Name</div>
-                    <div>Video Link</div>
-                </div>
-
-               {videos.map((video , idx ) => (
-                 <React.Fragment>
-                 <div className="flex">
-                 <input type="text" name="" id="" value={video.name} className="border border-gray-400 w-56 py-1 mt-2 ml-2" onChange={(e) => handleChange(idx, 'name' , e.target.value)}/>
-                 <input type="text" value={video.Link} name="" id="" className="border border-gray-400 w-56 py-1 mt-2 ml-22" />
-                 <button className="cursor-pointer" onClick={() => DeleteVideo()}><i className="fa-solid fa-trash text-red-500 mt-4 ml-4 text-xl cursor-pointer"></i>
-                 </button>
-                 </div>
-                 
-             </React.Fragment>
-               ))}
-           </div>
+          ))}
         </div>
-    )
+      ))}
+    </div>
+  );
 }
 
 export default CourseModules;
