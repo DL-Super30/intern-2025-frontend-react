@@ -18,7 +18,7 @@ function UpdateProfile() {
         defaultValues: {
             name: '',
             email: '',
-            profile: null,
+            profile: '',
         }
     });
 
@@ -44,10 +44,9 @@ function UpdateProfile() {
 
         console.log("Submitting Form Data:", data);
 
-
         const userDetails = {
-            name: '',
-            email: '',
+            name: data.name,
+            email: data.email,
             profileFile: fileName
         };
 
@@ -94,8 +93,12 @@ function UpdateProfile() {
                         <div className="mt-2 ml-44">
                             <div className="border border-gray-400 px-3 py-1 inline-flex items-center space-x-3 w-[700px] rounded-sm">
                                 <label htmlFor="upload" className="bg-gray-400 hover:bg-gray-600 hover:text-white p-2  text-center rounded-sm cursor-pointer">Choose File
-                                    <input type="file" onChange={handleChange} name="" id="upload" className="hidden" 
-                                    {...register('profile')}
+                                    <input type="file" id="upload" className="hidden"
+                                     {...register("profile", {
+                                        onChange: (e) => {
+                                         handleChange(e);
+                                       }
+                                     })}
                                     />
                                 </label>
                                 <span className="text-gray-800 truncate w-40 text-sm">{fileName}</span>

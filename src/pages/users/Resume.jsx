@@ -4,7 +4,7 @@ function Resume() {
 
     const [fileName, setFileName] = useState('');
     const [message, setMessage] = useState('');
-
+    const [messageType, setMessageType] = useState("");
 
     const handleChange = (e) => {
         const file = e.target.files[0];
@@ -17,8 +17,10 @@ function Resume() {
     const upload = () => {
         if (fileName) {
             setMessage('File Uploaded Successfully');
+            setMessageType('success')
         } else {
-            setMessage('Please Upload a File')
+            setMessage('Please Upload a File');
+            setMessageType('error')
         }
     }
     return (
@@ -43,7 +45,7 @@ function Resume() {
                     <h2 className="bg-blue-700 text-white hover:bg-blue-900 w-24 text-center cursor-pointer p-3" onClick={upload}>Upload</h2>
                 </div>
                 {message && (
-                    <p className="mt-2 text-green-500 text-md ml-7 font-normal">{message}</p>
+                    <p className={`mt-2 text-md ml-7 font-normal ${messageType === 'success' ? 'text-green-500' : 'text-red-500'}`}>{message}</p>
                 )}
             </div>
         </>
