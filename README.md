@@ -1,1 +1,1 @@
-# intern-2025-frontend-node
+# intern-2025-frontend-react
